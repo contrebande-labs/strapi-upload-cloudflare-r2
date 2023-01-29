@@ -6,6 +6,10 @@ import {
 
 type StripeUploadFile = { stream: ReadableStream, buffer: any, path: string, hash: string, ext: string, mime: string, url: string };
 
+const Bucket = process.env.CLOUDFLARE_R2_BUCKET;
+
+const PublicRoot = process.env.CLOUDFLARE_R2_PUBLIC_ROOT;
+
 module.exports = {  
 
   init: () => {
@@ -19,15 +23,11 @@ module.exports = {
       },
     });
 
-    const Bucket = process.env.CLOUDFLARE_R2_BUCKET;
-
-    const publicRoot = process.env.CLOUDFLARE_R2_PUBLIC_ROOT;
-
     async function uploadHandler(file: StripeUploadFile): Promise<void> {
 
       const path = file.path ? `${ file.path }/` : '';
 
-      const Key = `${ path }${ file.hash }${ file.ext }`;
+      const Key = `${ process.env.CLOUDFLARE_R2_KEY_PREFIX }${ path }${ file.hash }${ file.ext }`;
 
       const Body = file.stream || Buffer.from(file.buffer, 'binary');
 
@@ -37,7 +37,7 @@ module.exports = {
 
       await S3.send( new PutObjectCommand({ Bucket, Key, Body, ACL, ContentType }) );
 
-      file.url = `${ publicRoot }${ Key }`;
+      file.url = `${ PublicRoot }/${ Key }`;
 
     }
 
