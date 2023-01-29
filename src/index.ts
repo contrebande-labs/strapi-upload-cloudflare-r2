@@ -22,7 +22,7 @@ export default {
 
     const publicRoot = process.env.CLOUDFLARE_R2_PUBLIC_ROOT;
 
-    async function upload(file: StripeUploadFile, customParams: any = {}): Promise<void> {
+    async function upload(file: StripeUploadFile): Promise<void> {
 
       const path = file.path ? `${ file.path }/` : '';
 
@@ -34,19 +34,19 @@ export default {
 
       const ContentType = file.mime;
 
-      await S3.send( new PutObjectCommand({ ...customParams, Bucket, Key, Body, ACL, ContentType }) );
+      await S3.send( new PutObjectCommand({ Bucket, Key, Body, ACL, ContentType }) );
 
       file.url = `${ publicRoot }${ path }`;
 
     }
 
-    async function deleteFile(file: StripeUploadFile, customParams: any = {}): Promise<void> {
+    async function deleteFile(file: StripeUploadFile): Promise<void> {
 
       const path = file.path ? `${ file.path }/` : '';
 
       const Key = `${ path }${ file.hash }${ file.ext }`;
 
-      await S3.send( new DeleteObjectCommand({ ...customParams, Bucket, Key }) );
+      await S3.send( new DeleteObjectCommand({ Bucket, Key }) );
 
     }
 
