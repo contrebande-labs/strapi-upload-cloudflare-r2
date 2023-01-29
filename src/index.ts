@@ -45,7 +45,7 @@ module.exports = {
 
       const path = file.path ? `${ file.path }/` : '';
 
-      const Key = `${ path }${ file.hash }${ file.ext }`;
+      const Key = `${ process.env.CLOUDFLARE_R2_KEY_PREFIX }${ path }${ file.hash }${ file.ext }`;
 
       await S3.send( new DeleteObjectCommand({ Bucket, Key }) );
 
