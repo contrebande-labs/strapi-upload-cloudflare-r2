@@ -6,7 +6,7 @@ import {
 
 type StripeUploadFile = { stream: ReadableStream, buffer: any, path: string, hash: string, ext: string, mime: string, url: string };
 
-module.exports = {
+export default {
   init() {
 
     const S3 = new S3Client({
