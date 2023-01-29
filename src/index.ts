@@ -6,7 +6,7 @@ import {
 
 type StripeUploadFile = { stream: ReadableStream, buffer: any, path: string, hash: string, ext: string, mime: string, url: string };
 
-export default {
+module.exports = {
   init() {
 
     const S3 = new S3Client({
@@ -22,7 +22,7 @@ export default {
 
     const publicRoot = process.env.CLOUDFLARE_R2_PUBLIC_ROOT;
 
-    async function upload(file: StripeUploadFile): Promise<void> {
+    async function uploadHandler(file: StripeUploadFile): Promise<void> {
 
       const path = file.path ? `${ file.path }/` : '';
 
@@ -36,11 +36,11 @@ export default {
 
       await S3.send( new PutObjectCommand({ Bucket, Key, Body, ACL, ContentType }) );
 
-      file.url = `${ publicRoot }${ path }`;
+      file.url = `${ publicRoot }${ Key }`;
 
     }
 
-    async function deleteFile(file: StripeUploadFile): Promise<void> {
+    async function deleteHandler(file: StripeUploadFile): Promise<void> {
 
       const path = file.path ? `${ file.path }/` : '';
 
@@ -51,9 +51,9 @@ export default {
     }
 
     return {
-      uploadStream: upload,
-      upload,
-      delete: deleteFile
+      uploadStream: uploadHandler,
+      upload: uploadHandler,
+      delete: deleteHandler
     };
   },
 };
