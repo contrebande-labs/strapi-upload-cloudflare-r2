@@ -8,7 +8,7 @@ type StripeUploadFile = {
     url: string;
 };
 declare const _default: {
-    init(): {
+    init: () => {
         uploadStream: (file: StripeUploadFile) => Promise<void>;
         upload: (file: StripeUploadFile) => Promise<void>;
         delete: (file: StripeUploadFile) => Promise<void>;

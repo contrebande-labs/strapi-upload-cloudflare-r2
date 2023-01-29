@@ -6,8 +6,8 @@ import {
 
 type StripeUploadFile = { stream: ReadableStream, buffer: any, path: string, hash: string, ext: string, mime: string, url: string };
 
-export default {
-  init() {
+export default {  
+  init: () => {
 
     const S3 = new S3Client({
       region: "auto",
@@ -55,5 +55,5 @@ export default {
       upload: uploadHandler,
       delete: deleteHandler
     };
-  },
-};
+  }
+}
