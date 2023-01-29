@@ -6,7 +6,7 @@ import {
 
 type StripeUploadFile = { stream: ReadableStream, buffer: any, path: string, hash: string, ext: string, mime: string, url: string };
 
-const provider = {  
+module.exports = {  
 
   init: () => {
 
@@ -59,5 +59,3 @@ const provider = {
   }
 
 };
-
-export default provider;
