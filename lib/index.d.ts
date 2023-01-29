@@ -7,11 +7,11 @@ type StripeUploadFile = {
     mime: string;
     url: string;
 };
-declare const _default: {
+declare const provider: {
     init: () => {
         uploadStream: (file: StripeUploadFile) => Promise<void>;
         upload: (file: StripeUploadFile) => Promise<void>;
         delete: (file: StripeUploadFile) => Promise<void>;
     };
 };
-export default _default;
+export default provider;
