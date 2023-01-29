@@ -2,10 +2,8 @@
   "name": "strapi-upload-cloudflare-r2",
   "version": "1.0.0",
   "description": "Strapi media upload plugin for Cloudflare R2.",
-  "main": "./dist",
-  "directories": {
-    "lib": "./dist"
-  },
+  "main": "./lib/main.js",
+  "types": "./lib/main.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
