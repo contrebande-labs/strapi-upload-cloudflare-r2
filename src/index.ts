@@ -11,10 +11,10 @@ export default {
 
     const S3 = new S3Client({
       region: "auto",
-      endpoint: `https://${ process.env.CLOUDFLARE_R2_ACCOUNT_ID }.r2.cloudflarestorage.com`,
+      endpoint: process.env.CLOUDFLARE_R2_ENDPOINT,
       credentials: {
         accessKeyId: process.env.CLOUDFLARE_R2_ACCESS_KEY_ID,
-        secretAccessKey: process.env.CLOUDFLARE_R2_SECRET_ACCESS_KEY,
+        secretAccessKey: process.env.CLOUDFLARE_R2_ACCESS_KEY_SECRET,
       },
     });
 
